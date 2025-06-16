@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:assignment_2425.ViewModels"
+             x:Class="assignment_2425.Views.GroceryAddItemView"
+             Title="Add Item">
+
+    <ScrollView>
+        <VerticalStackLayout Margin="20" Spacing="15">
+
+            <!-- Action buttons -->
+            <Button Text="Read Aloud"
+                    Command="{Binding ReadAloudCommand}"
+                    HorizontalOptions="End"
+                    Style="{StaticResource ButtonStyle}"/>
+
+            <Button Text="Back"
+                    HorizontalOptions="End"
+                    Clicked="OnBackClicked"
+                    Style="{StaticResource ButtonStyle}"/>
+
+            <!-- Search section -->
+            <SearchBar Placeholder="Search for items..."
+                       Text="{Binding SearchQuery, Mode=TwoWay}"
+                       SearchCommand="{Binding SearchCommand}"
+                       SearchCommandParameter="{Binding SearchQuery}"
+                       TextChanged="OnSearchTextChanged"
+                       TextColor="{DynamicResource TextBrush}"
+                       PlaceholderColor="{DynamicResource TextBrush}"
+                       BackgroundColor="{DynamicResource CardBrush}"/>
+
+            <!-- Loading indicator -->
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
+
+            <Frame IsVisible="{Binding SelectedFood, Converter={StaticResource NullToBoolConverter}, ConverterParameter=Invert}"
+                   Margin="0,10"
+                   CornerRadius="10">
+
+                <VerticalStackLayout Spacing="15">
+                    <Label Text="Item Settings"
+                           FontAttributes="Bold"
+                           FontSize="Medium"/>
+
+                    <Grid ColumnDefinitions="*,Auto" 
+                          VerticalOptions="Center"
+                          RowDefinitions="Auto">
+
+                        <Label Text="Quantity:" 
+                               VerticalOptions="Center"/>
+
+                        <!-- Quantity selector -->
+                        <HorizontalStackLayout Grid.Column="1"
+                                             VerticalOptions="Center"
+                                             Spacing="10">
+                            <Label Text="{Binding NewItemQuantity}"
+                                   FontSize="Medium"
+                                   WidthRequest="50"
+                                   HorizontalTextAlignment="Center"
+                                   VerticalOptions="Center"/>
+                            <Stepper Value="{Binding NewItemQuantity}"
+                                    Minimum="1"
+                                    Maximum="100"
+                                    HorizontalOptions="End"
+                                    VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Search results list -->
+            <CollectionView ItemsSource="{Binding SearchResults}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="{DynamicResource BorderBrush}"
+                               BackgroundColor="{DynamicResource CardBrush}"
+                               Padding="10" Margin="5">
+
+                            <VerticalStackLayout>
+                                <!-- Item details -->
+                                <Label Text="{Binding BrandName}" 
+                                       FontAttributes="Bold"
+                                       FontSize="16"/>
+                                <Label Text="{Binding Description}"
+                                       FontAttributes="Bold"
+                                       FontSize="14"/>
+                                <Button Text=" Add to List" 
+                                        TextColor="{DynamicResource TextBrush}"
+                                        BackgroundColor="{DynamicResource PrimaryBrush}"
+                                        Command="{Binding Source={RelativeSource AncestorType={
+                                            x:Type viewmodels:GroceryViewModel}}, Path=AddToGroceryCommand}"
+                                        CommandParameter="{Binding .}"/>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Label Text="Grocery List" FontAttributes="Bold" FontSize="Large"
+                   TextColor="{DynamicResource TextBrush}"/>
+
+            <!-- Grocery items list with swipe-to-delete -->
+            <CollectionView ItemsSource="{Binding GroceryItems}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems>
+                                    <SwipeItem Text="Delete"
+                                               BackgroundColor="Red"
+                                               Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:GroceryViewModel}}, Path=DeleteItemCommand}"
+                                               CommandParameter="{Binding .}"/>
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+
+                            <Frame BorderColor="{DynamicResource BorderBrush}"
+                                   BackgroundColor="{DynamicResource CardBrush}"
+                                   Padding="10" Margin="5">
+                                <VerticalStackLayout>
+                                    <!-- Item details -->
+                                    <Label Text="{Binding Food.BrandName}" FontAttributes="Bold"/>
+                                    <Label Text="{Binding Food.Description}" FontAttributes="Bold" />
+                                    <Label Text="{Binding Quantity, StringFormat= 'Quantity: {0}'}" />
+                                </VerticalStackLayout>
+                            </Frame>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

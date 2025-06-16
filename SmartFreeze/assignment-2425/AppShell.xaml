@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="assignment_2425.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:assignment_2425.Views"
+    Shell.FlyoutBehavior="Disabled"
+    Title="assignment_2425"
+    Shell.TabBarIsVisible="True">
+
+    <ShellContent
+         Title=""
+         ContentTemplate="{DataTemplate local:MainPageView}"
+         Route="MainPage"
+         Shell.TabBarIsVisible="False"/>  
+
+    <TabBar>
+        <Tab Title="Fridge">
+            <ShellContent
+                Title="Fridge"
+                ContentTemplate="{DataTemplate local:FridgeView}"
+                Route="FridgePage" />
+        </Tab>
+
+        <Tab Title="Grocery">
+            <ShellContent
+                Title="Grocery"
+                ContentTemplate="{DataTemplate local:GroceryView}"
+                Route="GroceryPage" />
+        </Tab>
+
+        <Tab Title="Settings">
+            <ShellContent
+                Title="Settings"
+                ContentTemplate="{DataTemplate local:SettingsView}"
+                Route="SettingsPage" />
+        </Tab>
+    </TabBar>
+    
+
+    <ShellContent
+         Title="AddItem"
+         ContentTemplate="{DataTemplate local:FridgeAddItemView}"
+         Route="FridgeAddItemPage"
+         Shell.TabBarIsVisible="False"/>
+
+    <ShellContent
+         Title="AddItem"
+         ContentTemplate="{DataTemplate local:GroceryAddItemView}"
+         Route="GroceryAddItemPage"
+         Shell.TabBarIsVisible="False"/>
+
+</Shell>

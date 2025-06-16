@@ -1,0 +1,65 @@
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:assignment_2425"
+             xmlns:viewmodels="clr-namespace:assignment_2425.ViewModels"
+             x:Class="assignment_2425.App">
+    
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style TargetType="Picker">
+                 <Setter Property="TextColor" Value="{DynamicResource TextBrush}" />
+                <Setter Property="BackgroundColor" Value="{DynamicResource CardBrush}"/>
+            </Style>
+
+            <Style x:Key="VoiceButton" TargetType="Button">
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="CornerRadius" Value="30"/>
+                <Setter Property="WidthRequest" Value="60"/>
+                <Setter Property="HeightRequest" Value="60"/>
+                <Setter Property="Padding" Value="0"/>
+            </Style>
+
+            <Style x:Key="BaseLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="{DynamicResource TextBrush}"/>
+                <Setter Property="FontSize" Value="14"/>
+            </Style>
+
+            <Style x:Key="BoldLabelStyle" TargetType="Label" BasedOn="{StaticResource BaseLabelStyle}">
+                <Setter Property="FontAttributes" Value="Bold"/>
+            </Style>
+
+            <Style x:Key="TitleLabelStyle" TargetType="Label" BasedOn="{StaticResource BoldLabelStyle}">
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="Margin" Value="0,0,0,10"/>
+            </Style>
+
+            <Style x:Key="ButtonStyle" TargetType="Button">
+                <Setter Property="TextColor" Value="{DynamicResource TextBrush}"/>
+                <Setter Property="BackgroundColor" Value="{DynamicResource PrimaryBrush}"/>
+                <Setter Property="CornerRadius" Value="20"/>
+                <Setter Property="Padding" Value="20,10"/>
+            </Style>
+
+            <Style x:Key="FrameStyle" TargetType="Frame">
+                <Setter Property="BorderColor" Value="{DynamicResource BorderBrush}"/>
+                <Setter Property="BackgroundColor" Value="{DynamicResource CardBrush}"/>
+                <Setter Property="Padding" Value="15"/>
+                <Setter Property="CornerRadius" Value="10"/>
+                <Setter Property="Margin" Value="5"/>
+            </Style>
+
+            <Style x:Key="SearchBarStyle" TargetType="SearchBar">
+                <Setter Property="TextColor" Value="{DynamicResource TextBrush}"/>
+                <Setter Property="PlaceholderColor" Value="{DynamicResource TextBrush}"/>
+                <Setter Property="BackgroundColor" Value="{DynamicResource CardBrush}"/>
+            </Style>
+
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

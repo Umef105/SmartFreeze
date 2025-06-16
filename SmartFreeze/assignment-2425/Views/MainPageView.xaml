@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="assignment_2425.Views.MainPageView"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto, *, Auto"
+          Padding="15, 25">
+
+        <!-- Application title -->
+        <Label Grid.Row="0"
+               Text="Smart Freeze" 
+               FontAttributes="Bold"
+               FontSize="36"
+               HorizontalTextAlignment="Center" />
+
+        <!-- Central application image -->
+        <Image Grid.Row="1"
+               Source="fridge.png"
+               HeightRequest="300"
+               WidthRequest="300"
+               VerticalOptions="Center"
+               HorizontalOptions="Center"/>
+
+        <!-- Tagline text -->
+        <VerticalStackLayout Grid.Row="3" Spacing="20">
+            <Label
+                Text="Track food items, manage expiration dates and reduce waste."
+                FontSize="30"
+                HorizontalTextAlignment="Center" />
+
+            <!-- Action button -->
+            <Button
+                Grid.Row="4"
+                Text="Get Started"
+                Clicked="GetStartedClicked"
+                Style="{StaticResource ButtonStyle}"
+                WidthRequest="300" />
+
+        </VerticalStackLayout>
+        
+    </Grid>
+
+</ContentPage>

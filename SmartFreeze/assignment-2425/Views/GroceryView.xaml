@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:assignment_2425.ViewModels"
+             x:Class="assignment_2425.Views.GroceryView"
+             Title="Grocery ">
+
+    <VerticalStackLayout Margin="20" Spacing="15">
+
+        <!-- Info text about shake-to-clear feature -->
+        <Frame BorderColor="{DynamicResource BorderBrush}" Padding="10" Margin="5">
+            <Label Text="Shake phone to clear entire list"
+                   FontAttributes="Italic"
+                   HorizontalOptions="Center"
+                   FontSize="14"/>
+        </Frame>
+        
+        <!-- Action buttons -->
+        <Button Text="Read Aloud"
+                Command="{Binding ReadAloudCommand}"
+                HorizontalOptions="End"
+                Style="{StaticResource ButtonStyle}" />
+
+        <Button Text=" Add Item " 
+                    Command="{Binding GoToAddItemCommand}"
+                    HorizontalOptions="End"
+                    Style="{StaticResource ButtonStyle}"/>
+
+        <!-- Grocery items list with swipe-to-delete -->
+        <CollectionView ItemsSource="{Binding GroceryItems}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItems>
+                                <SwipeItem Text="Delete"
+                                           BackgroundColor="Red"
+                                           Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:GroceryViewModel}}, Path=DeleteItemCommand}"
+                                           CommandParameter="{Binding .}"/>
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+
+                        <!-- Item details -->
+                        <Frame BorderColor="{DynamicResource BorderBrush}" Padding="10" Margin="5">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Food.BrandName}" 
+                                       FontAttributes="Bold"
+                                       FontSize="16"/>
+                                <Label Text="{Binding Food.Description}" 
+                                       FontSize="14"/>
+                                <Label Text="{Binding Quantity, StringFormat='Quantity: {0}'}" 
+                                       FontSize="14"/>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>

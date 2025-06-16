@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:assignment_2425.ViewModels"
+             x:Class="assignment_2425.Views.FridgeView"
+             Title="Fridge"
+             BackgroundColor="{DynamicResource PageBackgroundBrush}">
+
+    <VerticalStackLayout Margin="20" Spacing="15">
+
+        <!-- Action buttons -->
+        <Button Text="Read Aloud"
+                Command="{Binding ReadAloudCommand}"
+                Style="{StaticResource ButtonStyle}"
+                HorizontalOptions="End"/>
+
+        <Button Text=" Add Item " 
+                Command="{Binding GoToAddItemCommand}"
+                Style="{StaticResource ButtonStyle}"
+                HorizontalOptions="End"/>
+
+        <!-- Fridge items list with swipe-to-delete -->
+        <CollectionView ItemsSource="{Binding FridgeItems}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItems>
+                                <SwipeItem Text="Delete"
+                                      BackgroundColor="Red"
+                                      Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:FridgeViewModel}}, Path=DeleteItemCommand}"
+                                      CommandParameter="{Binding .}"/>
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+
+                        <Frame BorderColor="{DynamicResource BorderBrush}" Padding="10" Margin="5">
+                            <VerticalStackLayout>
+                                <!-- Item details -->
+                                <Label Text="{Binding BrandName}" 
+                                       FontAttributes="Bold"
+                                       FontSize="16"/>
+                                <Label Text="{Binding Description}" 
+                                       FontSize="14"/>
+                                <Label Text="{Binding Quantity, StringFormat='Quantity: {0}'}"
+                                       FontSize="14"/>
+
+                                <!-- Expiry information -->
+                                <Label Text="{Binding ExpiryDate, StringFormat='Expires: {0:d}'}"
+                                       FontSize="14"/>
+
+                                <!-- Expiry priority -->
+                                <Label Text="{Binding ExpiryPriority}" 
+                                       TextColor="{Binding StatusColor}"
+                                       FontAttributes="Italic"/>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>
